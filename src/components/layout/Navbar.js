@@ -1,6 +1,7 @@
 import React, {  } from 'react'
 import PropTypes from 'prop-types' //Se usa para aclarar el datatype del prop, y si se pasa un prop del wrong type tira error.
-
+import { Link } from 'react-router-dom'
+ 
  const Navbar = ({icon, title}) =>
 
  
@@ -14,6 +15,10 @@ import PropTypes from 'prop-types' //Se usa para aclarar el datatype del prop, y
                 <h1>
                 <i className={icon} />  {title /*Prop used*/}
                 </h1>  
+                <ul>
+                    <li> <Link to='/'> Home </Link>  </li>
+                    <li> <Link to='/About'> About </Link> </li>
+                </ul>
             </nav>
         )
     }

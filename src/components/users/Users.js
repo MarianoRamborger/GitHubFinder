@@ -1,54 +1,61 @@
-import React, { Component } from 'react'
+import React, { } from 'react'
 import UserItem from './UserItem.js'
+import Spinner from '../layout/Spinner.js'
+import PropTypes from 'prop-types'
 
 
-export class Users extends Component {
-    state = {
-        users: [
-            {
-                login:	"mojombo",
-                id:	1,
-                avatar_url:	"https://avatars0.githubusercontent.com/u/1?v=4",
-                html_url:"https://github.com/mojombo"
-            },
-            {
-                login:	"defunkt",
-                id:	2,
-                avatar_url:	"https://avatars0.githubusercontent.com/u/2?v=4",
-                html_url:	"https://github.com/defunkt"
-            },
-            {
-                login:	"pjhyett",
-                id:	3,
-                avatar_url:	"https://avatars0.githubusercontent.com/u/3?v=4",
-                html_url:	"https://github.com/pjhyett"
-            }          
-        ]
-    }
+const Users = (props, { loading }) => { //Solo destructureo loading para recordar que los functional components necesitan incluir props normally (mientras que los smart 
+    // necesitan this.props. )
+    
+        if (props.loading === false) {
 
-    render() {
-  
-        return (
-            <div style={userStyle} > {/* Como crear estilo dentro de una variable en jsx */}
-            {
-                this.state.users.map(user => (
-                    <UserItem key={user.id} user={user} /> //Pasa el usuario entero.
-                    //Toda lista necesita una key unique, para que react pueda acceder a ellas y actualizarlas after dom creation.
-                ))
+            return (
+                <div style={userStyle} > {/* Como crear estilo dentro de una variable en jsx */}
+                {
+                    props.users.map(user => (
+                        <UserItem key={user.id} user={user} /> //Pasa el usuario entero.
+                        //Toda lista necesita una key unique, para que react pueda acceder a ellas y actualizarlas after dom creation.
+                    )) 
+                }        
+                </div>
+            )
 
-                
-            }        
-            </div>
-        )
-    }
+        }
+
+        else {
+            return (
+            
+                <div style={userStyle}>
+                <Spinner />
+                <Spinner />
+                <Spinner />
+                <Spinner />
+                <Spinner />
+                <Spinner />
+                <Spinner />
+                <Spinner />
+                <Spinner />
+                </div>
+
+            )
+        }
+
+
+       
 }
 
 
+Users.propTypes =  {
+    users : PropTypes.array.isRequired,
+    loading : PropTypes.bool.isRequired,
+}
 
 const userStyle = {
     display: 'grid',
     gridTemplateColumns: 'repeat(3, 1fr)',
     gridGap: '1rem'
 }
+
+
 
 export default Users
