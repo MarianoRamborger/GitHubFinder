@@ -3,15 +3,18 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import Navbar from './components/layout/Navbar.js';
 import Alert from './components/layout/Alert.js';
 import Users from './components/users/Users.js';
+import User from './components/users/User.js';
 import Search from './components/users/Search.js';
 import About from './components/pages/About.js';
 import Axios from 'axios';
 import './App.css';
 
+
 class App extends Component { 
   
   state = {
     users : [],
+    user : {}, //Specific user fetched to display
     loading: false, // To control the flow of the data
     alert: null
   }
@@ -35,21 +38,36 @@ class App extends Component {
   // console.log(this.state.users);
   // }
 
-  // Manages the search of users ↓ Search
-
-  searchUsers = async (text) => { //receives submissions from the searchbox ↑ Async porque calleamos a la API 
-    this.setState({loading: true})
-
-   const res = await Axios.get(`https://api.github.com/search/users?q=${text}&client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`);
-   this.setState({                                           
-    users: res.data.items, //how do I know? well, fijandote la respuesta al mandar solo con data. 
-    loading: false 
 
 
-      //Por qué esto funciona? por como está configurada la search API de github: https://developer.github.com/v3/search/
-    })
+        // Manages the search of users ↓ Search
+        searchUsers = async (text) => { //receives submissions from the searchbox ↑ Async porque calleamos a la API 
+          this.setState({loading: true})
 
-  }
+        const res = await Axios.get(`https://api.github.com/search/users?q=${text}&client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`);
+        this.setState({                                           
+          users: res.data.items, //how do I know? well, fijandote la respuesta al mandar solo con data. 
+          loading: false 
+
+
+            //Por qué esto funciona? por como está configurada la search API de github: https://developer.github.com/v3/search/
+          })
+
+        }
+
+  
+        //Gets a single user from gitHub.
+        getUser = async (userName) => {
+          this.setState({loading: true})
+
+        const res = await Axios.get(`https://api.github.com/users/${userName}?client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`);
+        this.setState({                                           
+          user: res.data, 
+          loading: false 
+        })
+        } 
+
+
 
   //Manages the clearing of users ↓ Search
    clearUsers = () => {
@@ -75,7 +93,7 @@ class App extends Component {
 
   render() { //lifecycle method
     const {clearUsers, searchUsers, } = this;
-    const {users, loading, alert} = this.state;
+    const {users, loading, alert, user} = this.state;
 
     return (
       <Router> {/* ROuter must wrap everything inside the return */}
@@ -88,24 +106,30 @@ class App extends Component {
       
       <Alert alert={alert} />
 
+
       <Switch>
-        <Route exact path='/' render={props => 
-         
-          <Fragment>
-                                                                              {/*----SEARCH RENDER---------*/}
-            <div className="container"> 
-                <Search searchUsers={searchUsers}  clearUsers={clearUsers}                                   /*PropS ↑ */
-                 displayClear= { users.length > 0 ? true : false}                                 // Prop ↓ controls wheter to display the clear button
-                     setAlert={this.setAlert}            
-            /> 
-                                                                              {/*----USERS RENDER---------*/}
-            <Users loading={loading} users={users}   /> {/*Prop↓*/}
-              </div> 
-          </Fragment>} />
-     
-     
-          <Route exact path='/about' component={About} //Como es un solo component, basta con ponerlo así.
-          />
+
+              <Route exact path='/' render={props => 
+              
+                <Fragment>
+                                                                                    {/*----SEARCH RENDER---------*/}
+                  <div className="container"> 
+                      <Search searchUsers={searchUsers}  clearUsers={clearUsers}                                   /*PropS ↑ */
+                      displayClear= { users.length > 0 ? true : false}                                 // Prop ↓ controls wheter to display the clear button
+                          setAlert={this.setAlert}            
+                  /> 
+                                                                                    {/*----USERS RENDER---------*/}
+                  <Users loading={loading} users={users}   /> {/*Prop↓*/}
+                    </div> 
+                </Fragment>} />
+          
+          
+                <Route exact path='/about' component={About}/>  { /* Como es un solo component, basta con ponerlo así. */ }
+              
+                <Route exact path='/user/:login' render={props => (
+                  <User { ...props } getUser={this.getUser} user={user} loading={loading} /> 
+                ) } />
+
       </Switch>
       
       </div>

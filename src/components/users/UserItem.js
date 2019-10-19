@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { Link } from 'react-router-dom'
 
 //class UserItem extends Component {
     // constructor() {  Puede usarse un constructor para settear el state pero no es recomendable
@@ -36,7 +37,7 @@ import PropTypes from 'prop-types'
             <h3> {login} </h3>
 
             <div>
-            <a href={html_url} className="btn btn-dark btn-sm my-1"> Profile </a>
+            <Link to={`/user/${login}`} className="btn btn-dark btn-sm my-1"> Profile </Link> {/*Button leads to profile*/}
             </div>
 
             </div>
