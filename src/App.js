@@ -15,8 +15,10 @@ class App extends Component {
   state = {
     users : [],
     user : {}, //Specific user fetched to display
+    repos: [],
     loading: false, // To control the flow of the data
-    alert: null
+    alert: null,
+    
   }
   
   
@@ -68,6 +70,21 @@ class App extends Component {
         } 
 
 
+        // Get user repos
+         //Gets a single user from gitHub.
+         getUserRepos = async (userName) => {
+          this.setState({loading: true})
+
+        const res = await Axios.get(`https://api.github.com/users/${userName}/repos?per_page=5&sort=created:asc&client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`);
+        this.setState({                                           
+          repos: res.data, 
+          loading: false 
+        })
+        } 
+
+
+
+
 
   //Manages the clearing of users ↓ Search
    clearUsers = () => {
@@ -93,7 +110,7 @@ class App extends Component {
 
   render() { //lifecycle method
     const {clearUsers, searchUsers, } = this;
-    const {users, loading, alert, user} = this.state;
+    const {users, loading, alert, user, repos} = this.state;
 
     return (
       <Router> {/* ROuter must wrap everything inside the return */}
@@ -102,7 +119,7 @@ class App extends Component {
       <div className="App"> {/*React.Fragment is used en caso de que no queramos un DIV parent que encompasea todo lo rendereado y que nuclee todo. Tambien podrian dejarse solo las brackets, pero no es as good. */}
        
        {/*Navbar */}
-       <Navbar title="Github Finder" icon="fab fa-github"/> {/*Prop passed*/}
+       <Navbar title="Github Seeker" icon="fab fa-github"/> {/*Prop passed*/}
       
       <Alert alert={alert} />
 
@@ -127,7 +144,7 @@ class App extends Component {
                 <Route exact path='/about' component={About}/>  { /* Como es un solo component, basta con ponerlo así. */ }
               
                 <Route exact path='/user/:login' render={props => (
-                  <User { ...props } getUser={this.getUser} user={user} loading={loading} /> 
+                  <User { ...props } getUser={this.getUser} getUserRepos={this.getUserRepos} user={user} repos={repos} loading={loading}  /> 
                 ) } />
 
       </Switch>

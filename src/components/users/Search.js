@@ -58,7 +58,8 @@ export class Search extends Component {
 
              {/* CLEAR BUTTON ----------------------------------------------------------------- */}
             {  displayClear && ( // && es una short way de testear si algo es true.. porque === true aca no lo toma y tira un weird mistake.
-                console.log(displayClear),
+                {/* console.log(displayClear) */}
+                ,
                 <button className="btn btn-light btn-block" 
                 onClick={clearUsers}> Clear</button>) 
              }                        {/* Prop ↑ App */}
