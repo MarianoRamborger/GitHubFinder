@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/MarianoRamborger/GitHubFinder/static/css/main.ae8ec85a.chunk.css",
-    "main.js": "/MarianoRamborger/GitHubFinder/static/js/main.8c4d560f.chunk.js",
-    "main.js.map": "/MarianoRamborger/GitHubFinder/static/js/main.8c4d560f.chunk.js.map",
-    "runtime-main.js": "/MarianoRamborger/GitHubFinder/static/js/runtime-main.2765205c.js",
-    "runtime-main.js.map": "/MarianoRamborger/GitHubFinder/static/js/runtime-main.2765205c.js.map",
-    "static/js/2.78f593b0.chunk.js": "/MarianoRamborger/GitHubFinder/static/js/2.78f593b0.chunk.js",
-    "static/js/2.78f593b0.chunk.js.map": "/MarianoRamborger/GitHubFinder/static/js/2.78f593b0.chunk.js.map",
-    "index.html": "/MarianoRamborger/GitHubFinder/index.html",
-    "precache-manifest.b4164dff95bda6ef7c707fe09764f5f5.js": "/MarianoRamborger/GitHubFinder/precache-manifest.b4164dff95bda6ef7c707fe09764f5f5.js",
-    "service-worker.js": "/MarianoRamborger/GitHubFinder/service-worker.js",
-    "static/css/main.ae8ec85a.chunk.css.map": "/MarianoRamborger/GitHubFinder/static/css/main.ae8ec85a.chunk.css.map"
+    "main.css": "/GitHubFinder/static/css/main.ae8ec85a.chunk.css",
+    "main.js": "/GitHubFinder/static/js/main.8c4d560f.chunk.js",
+    "main.js.map": "/GitHubFinder/static/js/main.8c4d560f.chunk.js.map",
+    "runtime-main.js": "/GitHubFinder/static/js/runtime-main.c733c38e.js",
+    "runtime-main.js.map": "/GitHubFinder/static/js/runtime-main.c733c38e.js.map",
+    "static/js/2.78f593b0.chunk.js": "/GitHubFinder/static/js/2.78f593b0.chunk.js",
+    "static/js/2.78f593b0.chunk.js.map": "/GitHubFinder/static/js/2.78f593b0.chunk.js.map",
+    "index.html": "/GitHubFinder/index.html",
+    "precache-manifest.da26fc70ef4f6785fb39881cda5e8ba9.js": "/GitHubFinder/precache-manifest.da26fc70ef4f6785fb39881cda5e8ba9.js",
+    "service-worker.js": "/GitHubFinder/service-worker.js",
+    "static/css/main.ae8ec85a.chunk.css.map": "/GitHubFinder/static/css/main.ae8ec85a.chunk.css.map"
   }
 }
