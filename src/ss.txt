@@ -1,5 +1,6 @@
 import React, { Fragment, Component}  from 'react'; //destructured para no tener que incluir React.Component en la extension de class.
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+// import { HashRouter } from "react-router-dom";
 import Navbar from './components/layout/Navbar.js';
 import Alert from './components/layout/Alert.js';
 import Users from './components/users/Users.js';
@@ -9,7 +10,7 @@ import About from './components/pages/About.js';
 import Axios from 'axios';
 import './App.css';
 
-// Time to include hooks
+
 class App extends Component { 
   
   state = {
@@ -18,7 +19,6 @@ class App extends Component {
     repos: [],
     loading: false, // To control the flow of the data
     alert: null,
-    wR : true
     
   }
   
@@ -58,12 +58,6 @@ class App extends Component {
 
         }
 
-         wRkill = () => {
-          this.setState({                                           
-            wR:  false
-          })
-        }
-
   
         //Gets a single user from gitHub.
         getUser = async (userName) => {
@@ -72,13 +66,12 @@ class App extends Component {
         const res = await Axios.get(`https://api.github.com/users/${userName}?client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`);
         this.setState({                                           
           user: res.data, 
-          loading: false,
+          loading: false 
         })
         } 
 
 
         // Get user repos
-         //Gets a single user from gitHub.
          getUserRepos = async (userName) => {
           this.setState({loading: true})
 
@@ -89,7 +82,7 @@ class App extends Component {
         })
         } 
 
-        
+
 
 
 
@@ -120,32 +113,20 @@ class App extends Component {
     const {users, loading, alert, user, repos} = this.state;
 
     return (
-      <Router  basename={process.env.PUBLIC_URL}  > {/* ROuter must wrap everything inside the return */}
+      
+      <Router > {/* ROuter must wrap everything inside the return */}
 
+{/* basename='/' */}
 
       <div className="App"> {/*React.Fragment is used en caso de que no queramos un DIV parent que encompasea todo lo rendereado y que nuclee todo. Tambien podrian dejarse solo las brackets, pero no es as good. */}
        
        {/*Navbar */}
-       <Navbar title="Github Seeker" icon="fab fa-github"/> {/*Prop passed*/}
-      
-{/*       
-       { (this.state.wR) ? 
-       ( <div className="container"> 
-                      <Search searchUsers={searchUsers}  clearUsers={clearUsers}                                  
-                      displayClear= { users.length > 0 ? true : false}                                 
-                          setAlert={this.setAlert}            
-                  /> 
-       <Users loading={loading} users={users}   /> 
-                    </div>)
-        : null }
-         */}
+       <Navbar title="Github  Seeker" icon="fab fa-github"/> {/*Prop passed*/}
       
       <Alert alert={alert} />
 
-
       <Switch>
-
-              <Route exact path='/' render={props => 
+              <Route path='/' render={props => 
               
                 <Fragment>
                                                                                     {/*----SEARCH RENDER---------*/}
@@ -170,9 +151,13 @@ class App extends Component {
       
       </div>
       </Router>
+      
     );
   }
  
 }
 
 export default App;
+
+
+

@@ -16,7 +16,7 @@ import { Link } from 'react-router-dom'
                 <i className={icon} />  {title /*Prop used*/}
                 </h1>  
                 <ul>
-                    <li> <Link to='/'> Home </Link>  </li>
+                    <li> <Link to="/"> Home </Link>  </li>
                     <li> <Link to='/About'> About </Link> </li>
                 </ul>
             </nav>
